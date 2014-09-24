@@ -180,7 +180,7 @@ round(totalTimeVignette, digits=3)
 
 ## ----vignetteReproducibility3, echo=FALSE--------------------------------
 ## Session info
-sessionInfo()
+session_info()
 
 
 ## ----vignetteBiblio, results='asis', echo=FALSE--------------------------
