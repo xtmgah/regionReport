@@ -861,22 +861,24 @@
   </style>
 </head>
 <body>
-<div id="wrap"><div class="container"><div class="row row-offcanvas row-offcanvas-right"><div class="contents col-xs-12 col-md-10">
+<div id="wrap">
+<div class="container">
+<div class="row row-offcanvas row-offcanvas-right">
+<div class="contents col-xs-12 col-md-10">
 <!--
 %\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Introduction to regionReport}
 -->
-
-<h1 id="html-reports-for-a-set-of-regions">HTML reports for a set of regions</h1>
+<h1>HTML reports for a set of regions</h1>
 <p>If you wish, you can view this vignette online <a href="http://lcolladotor.github.io/regionReport/">here</a>.</p>
 <p><code>regionReport</code> <a id='cite-colladotorres2014regionreport'></a>(<a href='https://github.com/lcolladotor/regionReport'>Collado-Torres, Jaffe, and Leek, 2014</a>) creates HTML reports styled with <code>knitrBootstrap</code> <a id='cite-hester2014knitrbootstrap'></a>(<a href='https://github.com/jimhester/'>Hester, 2014</a>) for a set of regions such as <code>derfinder</code> <a id='cite-colladotorres2014derfinder'></a>(<a href='https://github.com/lcolladotor/derfinder'>Collado-Torres, Frazee, Jaffe, and Leek, 2014</a>) results.</p>
 <p>Currently, this package includes a basic exploration analysis of <code>derfinder</code> results which we expect users to be interested in reproducing with their own data. The analysis is written in <a href="http://www.rstudio.com/ide/docs/r_markdown">R Markdown</a> format and <code>derfinderReport()</code> takes the results from <code>derfinder</code>, performs a couple of setup operations, and then relies on <code>knitr</code> <a id='cite-xie2014knitr'></a>(<a href='http://www.crcpress.com/product/isbn/9781466561595'>Xie, 2014</a>), <code>rmarkdown</code> <a id='cite-allaire2014rmarkdown'></a>(<a href='http://CRAN.R-project.org/package=rmarkdown'>Allaire, McPherson, Xie, Wickham, et al., 2014</a>), and <code>knitrBootstrap</code> (<a href='https://github.com/jimhester/'>Hester, 2014</a>) for generating the report.</p>
 <p>Other goodies in the report are powered by <code>ggbio</code> <a id='cite-yin2012ggbio'></a>(<a href='#bib-yin2012ggbio'>Yin, Cook, and Lawrence, 2012</a>), <code>ggplot2</code> <a id='cite-wickham2009ggplot2'></a>(<a href='http://had.co.nz/ggplot2/book'>Wickham, 2009</a>), and <code>rCharts</code> <a id='cite-vaidyanathan2013rcharts'></a>(<a href='#bib-vaidyanathan2013rcharts'>Vaidyanathan, 2013</a>).</p>
-<h1 id="using-regionreport">Using <code>regionReport</code></h1>
-<h2 id="general-case">General case</h2>
+<h1>Using <code>regionReport</code></h1>
+<h2>General case</h2>
 <p>This is currently under construction.</p>
-<h2 id="derfinder-case"><code>derfinder</code> case</h2>
-<h3 id="run-derfinder">Run <code>derfinder</code></h3>
+<h2><code>derfinder</code> case</h2>
+<h3>Run <code>derfinder</code></h3>
 <p>Prior to using <code>regionReport::derfinderReport()</code> you must use <code>derfinder</code> to analyze a specific data set. While there are many ways to do so, we recommend using <strong>analyzeChr()</strong> with the same <em>prefix</em> argument. Then merging the results with <strong>mergeResults()</strong>.</p>
 <p>Below, we run <code>derfinder</code> for the example data included in the package. The steps are:</p>
 <ol style="list-style-type: decimal">
@@ -887,18 +889,29 @@
 <li>Analyze the example data for chr21</li>
 <li>Merge the results (only one chr in this case, but in practice there'll be more)</li>
 </ol>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Load derfinder
-library('derfinder')
-
-## The output will be saved in the 'report' directory
-dir.create('report', showWarnings = FALSE, recursive = TRUE)</code></pre></div>
-
+</button>
+<pre style=""><code class="source r">## Load derfinder
+library('derfinder')</code></pre>
+<button class="message R toggle btn btn-xs btn-info">
+<span class="glyphicon glyphicon-chevron-down"></span> R message
+</button>
+<pre style=""><code class="message r">## Use suppressPackageStartupMessages to eliminate package startup messages.
+</code></pre>
+<button class="source R toggle btn btn-xs btn-primary">
+<span class="glyphicon glyphicon-chevron-down"></span> R source
+</button>
+<pre style=""><code class="source r">## The output will be saved in the 'report' directory
+dir.create('report', showWarnings = FALSE, recursive = TRUE)</code></pre>
+</div>
 <p>The following code runs <code>derfinder</code>.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Save the current path
+</button>
+<pre style=""><code class="source r">## Save the current path
 initialPath <- getwd()
 setwd(file.path(initialPath, 'report'))
 
@@ -926,28 +939,36 @@ mc.cores=1, writeOutput=TRUE, returnOutput=TRUE)
 optionsStats <- analysis$optionsStats
 
 ## Change the directory back to the original one
-setwd(initialPath)</code></pre></div>
-
+setwd(initialPath)</code></pre>
+</div>
 <p>For convenience, we have included the <code>derfinder</code> results as part of <code>regionReport</code>. Note that the above functions are routinely checked as part of <code>derfinder</code>.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Copy previous results
+</button>
+<pre style=""><code class="source r">## Copy previous results
 file.copy(system.file(file.path('extdata', 'chr21'), package='derfinder', 
-mustWork=TRUE), 'report', recursive=TRUE)</code></pre><button class="output R toggle btn btn-xs btn-success">
+mustWork=TRUE), 'report', recursive=TRUE)</code></pre>
+<button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">## [1] TRUE
-</code></pre></div>
-
+</button>
+<pre style=""><code class="output r">## [1] TRUE
+</code></pre>
+</div>
 <p>Next, proceed to merging the results.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Merge the results from the different chromosomes. In this case, there's 
+</button>
+<pre style=""><code class="source r">## Merge the results from the different chromosomes. In this case, there's 
 ## only one: chr21
 mergeResults(chrs = 'chr21', prefix = 'report',
-    genomicState = genomicState$fullGenome)</code></pre><button class="message R toggle btn btn-xs btn-info">
+    genomicState = genomicState$fullGenome)</code></pre>
+<button class="message R toggle btn btn-xs btn-info">
 <span class="glyphicon glyphicon-chevron-up"></span> R message
-</button><pre style="display:none"><code class="message r">## 2014-09-24 09:38:26 mergeResults: Saving options used
-## 2014-09-24 09:38:26 Loading chromosome chr21
+</button>
+<pre style="display:none"><code class="message r">## 2014-09-25 04:52:37 mergeResults: Saving options used
+## 2014-09-25 04:52:37 Loading chromosome chr21
 ## Loading required package: parallel
 ## 
 ## Attaching package: 'BiocGenerics'
@@ -972,68 +993,74 @@ mergeResults(chrs = 'chr21', prefix = 'report',
 ##     table, tapply, union, unique, unlist, unsplit
 ## 
 ## Loading required package: stats4
-## 2014-09-24 09:38:27 mergeResults: Saving fullNullSummary
-## 2014-09-24 09:38:27 mergeResults: Re-calculating the p-values
-## 2014-09-24 09:38:27 mergeResults: Saving fullRegions
-## 2014-09-24 09:38:27 mergeResults: assigning genomic states
-## 2014-09-24 09:38:27 annotateRegions: counting
-## 2014-09-24 09:38:27 annotateRegions: annotating
-## 2014-09-24 09:38:27 mergeResults: Saving fullAnnotatedRegions
-## 2014-09-24 09:38:27 mergeResults: Saving fullFstats
-## 2014-09-24 09:38:27 mergeResults: Saving fullTime
-</code></pre></div>
-
-
-
-<h3 id="create-report">Create report</h3>
+## Neither 'cutoffFstatUsed' nor 'optionsStats' were supplied, so the FWER calculation step will be skipped.
+## 2014-09-25 04:52:38 mergeResults: Saving fullNullSummary
+## 2014-09-25 04:52:38 mergeResults: Re-calculating the p-values
+## 2014-09-25 04:52:38 mergeResults: Saving fullRegions
+## 2014-09-25 04:52:38 mergeResults: assigning genomic states
+## 2014-09-25 04:52:38 annotateRegions: counting
+## 2014-09-25 04:52:38 annotateRegions: annotating
+## 2014-09-25 04:52:39 mergeResults: Saving fullAnnotatedRegions
+## 2014-09-25 04:52:39 mergeResults: Saving fullFstats
+## 2014-09-25 04:52:39 mergeResults: Saving fullTime
+</code></pre>
+</div>
+<h3>Create report</h3>
 <p>Once the <code>derfinder</code> output has been generated and merged, use <strong>derfinderReport()</strong> to create the HTML report.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Load derfindeReport
-library('regionReport')</code></pre></div>
-
-
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+</button>
+<pre style=""><code class="source r">## Load derfindeReport
+library('regionReport')</code></pre>
+</div>
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Generate the HTML report
+</button>
+<pre style=""><code class="source r">## Generate the HTML report
 report <- derfinderReport(prefix='report', browse=FALSE,
     nBestRegions=15, makeBestClusters=TRUE, outdir='html',
-    fullCov=list('21'=genomeDataRaw$coverage), optionsStats=optionsStats)</code></pre></div>
-
-
-
-
+    fullCov=list('21'=genomeDataRaw$coverage), optionsStats=optionsStats)</code></pre>
+</div>
 <p>Once the output is generated, you can browse the report from <code>R</code> using <strong>browseURL()</strong> as shown below.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Browse the report
-browseURL(report)</code></pre></div>
-
+</button>
+<pre style=""><code class="source r">## Browse the report
+browseURL(report)</code></pre>
+</div>
 <p>You can compare the resulting report with the pre-compiled report using the following code.</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">browseURL(system.file(file.path('basicExploration', 'basicExploration.html'),  
-    package = 'regionReport', mustWork = TRUE))</code></pre></div>
-
-<h3 id="notes">Notes</h3>
+</button>
+<pre style=""><code class="source r">browseURL(system.file(file.path('basicExploration', 'basicExploration.html'),  
+    package = 'regionReport', mustWork = TRUE))</code></pre>
+</div>
+<h3>Notes</h3>
 <p>Note that the reports require an active Internet connection to render correctly.</p>
 <p>The report is self-explanatory and will change some of the text depending on the input options.</p>
 <p>If the report is taking too long to compile (say more than 3 hours), you might want to consider setting <em>nBestCluters</em> to a small number or even set <em>makeBestClusters</em> to <code>FALSE</code>.</p>
-<h1 id="advanced-arguments">Advanced arguments</h1>
+<h1>Advanced arguments</h1>
 <p>If you are interested in using the advanced arguments, use <code>derfinder::advancedArg()</code> as shown below:</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## URLs to advanced arguemtns
+</button>
+<pre style=""><code class="source r">## URLs to advanced arguemtns
 derfinder::advancedArg('derfinderReport', package = 'regionReport',
     browse = FALSE)
-## Set browse = TRUE if you want to open them in your browser</code></pre></div>
-
-
-<h1 id="reproducibility">Reproducibility</h1>
+## Set browse = TRUE if you want to open them in your browser</code></pre>
+</div>
+<h1>Reproducibility</h1>
 <p>Code for creating the vignette</p>
-<div class="row"><button class="source R toggle btn btn-xs btn-primary">
+<div class="row">
+<button class="source R toggle btn btn-xs btn-primary">
 <span class="glyphicon glyphicon-chevron-down"></span> R source
-</button><pre style=""><code class="source r">## Create the vignette
+</button>
+<pre style=""><code class="source r">## Create the vignette
 library('knitrBootstrap') 
 
 knitrBootstrapFlag <- packageVersion('knitrBootstrap') < '1.0.0'
@@ -1063,47 +1090,59 @@ file.copy(file.path('report', 'html', 'basicExploration.html'),
 ## Clean up
 file.remove('derfinderPlotRef.bib')
 #unlink('regionReport_files', recursive=TRUE)
-unlink('report', recursive = TRUE)</code></pre></div>
-
+unlink('report', recursive = TRUE)</code></pre>
+</div>
 <p>Date the vignette was generated.</p>
-<div class="row"><button class="output R toggle btn btn-xs btn-success">
+<div class="row">
+<button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">## [1] "2014-09-24 09:39:40 EDT"
-</code></pre></div>
-
+</button>
+<pre style=""><code class="output r">## [1] "2014-09-25 04:53:51 EDT"
+</code></pre>
+</div>
 <p>Wallclock time spent generating the vignette.</p>
-<div class="row"><button class="output R toggle btn btn-xs btn-success">
+<div class="row">
+<button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">## Time difference of 1.465 mins
-</code></pre></div>
-
+</button>
+<pre style=""><code class="output r">## Time difference of 1.467 mins
+</code></pre>
+</div>
 <p><code>R</code> session information.</p>
 <div class="row">
 <button class="message R toggle btn btn-xs btn-info">
 <span class="glyphicon glyphicon-chevron-down"></span> R message
-</button><pre style=""><code class="message r">## Session info--------------------------------------------------------------
-</code></pre><button class="output R toggle btn btn-xs btn-success">
+</button>
+<pre style=""><code class="message r">## Session info--------------------------------------------------------------
+</code></pre>
+<button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">##  setting  value                       
+</button>
+<pre style=""><code class="output r">##  setting  value                       
 ##  version  R version 3.1.1 (2014-07-10)
 ##  system   x86_64, darwin10.8.0        
 ##  ui       X11                         
 ##  language (EN)                        
 ##  collate  en_US.UTF-8                 
 ##  tz       America/New_York
-</code></pre><button class="message R toggle btn btn-xs btn-info">
+</code></pre>
+<button class="message R toggle btn btn-xs btn-info">
 <span class="glyphicon glyphicon-chevron-down"></span> R message
-</button><pre style=""><code class="message r">## Packages------------------------------------------------------------------
-</code></pre><button class="output R toggle btn btn-xs btn-success">
+</button>
+<pre style=""><code class="message r">## Packages------------------------------------------------------------------
+</code></pre>
+<button class="output R toggle btn btn-xs btn-success">
 <span class="glyphicon glyphicon-chevron-down"></span> R output
-</button><pre style=""><code class="output r">##  package           * version  date      
-##  AnnotationDbi       1.27.10  2014-09-14
+</button>
+<pre style=""><code class="output r">##  package           * version  date      
+##  acepack             1.3.3.3  2013-05-03
+##  AnnotationDbi       1.27.15  2014-09-24
 ##  BatchJobs           1.3      2014-07-10
 ##  BBmisc              1.7      2014-06-21
 ##  bibtex              0.3.6    2013-07-29
 ##  Biobase             2.25.0   2014-04-12
 ##  BiocGenerics      * 0.11.5   2014-09-13
-##  BiocParallel        0.99.19  2014-09-05
+##  BiocParallel        0.99.22  2014-09-24
 ##  biomaRt             2.21.1   2014-07-08
 ##  Biostrings          2.33.14  2014-09-09
 ##  biovizBase          1.13.11  2014-09-16
@@ -1118,30 +1157,33 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  colorspace          1.2.4    2013-09-30
 ##  data.table          1.9.2    2014-02-27
 ##  DBI                 0.3.0    2014-09-03
-##  derfinder         * 0.0.78   2014-09-24
-##  derfinderHelper     0.99.0   2014-09-23
-##  derfinderPlot       0.99.0   2014-09-24
+##  derfinder         * 0.99.0   2014-09-25
+##  derfinderHelper     0.99.0   2014-09-25
+##  derfinderPlot       0.99.0   2014-09-25
 ##  devtools          * 1.6      2014-09-23
 ##  dichromat           2.0.0    2013-01-24
 ##  digest              0.6.4    2013-12-03
-##  doRNG               1.5.5    2013-09-24
+##  doRNG               1.6      2014-03-07
 ##  evaluate            0.5.5    2014-04-29
 ##  fail                1.2      2013-09-19
 ##  foreach             1.4.2    2014-04-11
+##  foreign             0.8.61   2014-03-28
 ##  formatR             1.0      2014-08-25
 ##  Formula             1.1.2    2014-07-13
-##  GenomeInfoDb        1.1.19   2014-09-07
-##  GenomicAlignments   1.1.29   2014-09-13
-##  GenomicFeatures     1.17.14  2014-07-31
+##  futile.logger       1.3.7    2014-01-23
+##  futile.options      1.0.0    2010-04-06
+##  GenomeInfoDb        1.1.20   2014-09-25
+##  GenomicAlignments   1.1.30   2014-09-23
+##  GenomicFeatures     1.17.15  2014-09-18
 ##  GenomicFiles        1.1.19   2014-08-26
-##  GenomicRanges       1.17.40  2014-09-10
+##  GenomicRanges       1.17.42  2014-09-23
 ##  GGally              0.4.8    2014-08-26
 ##  ggbio               1.13.13  2014-09-12
 ##  ggplot2             1.0.0    2014-05-21
 ##  graph               1.43.0   2014-04-12
 ##  gridExtra           0.9.1    2012-08-09
 ##  gtable              0.1.2    2012-12-05
-##  Hmisc               3.14.4   2014-04-13
+##  Hmisc               3.14.5   2014-09-12
 ##  htmltools           0.2.6    2014-09-08
 ##  httr                0.5      2014-09-02
 ##  IRanges           * 1.99.28  2014-09-10
@@ -1149,6 +1191,7 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  knitcitations     * 1.0.2    2014-09-23
 ##  knitr               1.6      2014-05-25
 ##  knitrBootstrap    * 1.0.0    2014-09-23
+##  lambda.r            1.1.6    2014-01-23
 ##  lattice             0.20.29  2014-04-04
 ##  latticeExtra        0.6.26   2013-08-15
 ##  locfit              1.5.9.1  2013-04-20
@@ -1161,6 +1204,7 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  mgcv                1.8.3    2014-08-29
 ##  munsell             0.4.2    2013-07-11
 ##  nlme                3.1.117  2014-03-31
+##  nnet                7.3.8    2014-03-28
 ##  OrganismDbi         1.7.5    2014-07-31
 ##  pkgmaker            0.22     2014-05-14
 ##  plyr                1.8.1    2014-02-26
@@ -1173,14 +1217,15 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  Rcpp                0.11.2   2014-06-08
 ##  RCurl               1.95.4.3 2014-07-29
 ##  RefManageR          0.8.34   2014-08-19
-##  regionReport      * 0.99.0   2014-09-24
+##  regionReport      * 0.99.0   2014-09-25
 ##  registry            0.2      2012-01-24
 ##  reshape             0.8.5    2014-04-23
 ##  reshape2            1.4      2014-04-23
 ##  RJSONIO             1.3.0    2014-07-28
 ##  rmarkdown         * 0.3.3    2014-09-17
 ##  rngtools            1.2.4    2014-03-06
-##  Rsamtools           1.17.33  2014-08-16
+##  rpart               4.1.8    2014-03-28
+##  Rsamtools           1.17.34  2014-09-20
 ##  RSQLite             0.11.4   2013-05-26
 ##  rstudioapi          0.1      2014-03-27
 ##  rtracklayer         1.25.16  2014-09-10
@@ -1189,14 +1234,15 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  sendmailR           1.1.2    2012-11-15
 ##  stringr             0.6.2    2012-12-06
 ##  survival            2.37.7   2014-01-22
-##  VariantAnnotation   1.11.34  2014-09-13
+##  VariantAnnotation   1.11.35  2014-09-18
 ##  whisker             0.3.2    2013-04-28
 ##  XML                 3.98.1.1 2013-06-20
-##  xtable              1.7.3    2014-03-06
+##  xtable              1.7.4    2014-09-12
 ##  XVector             0.5.8    2014-09-07
 ##  yaml                2.1.13   2014-06-12
 ##  zlibbioc            1.11.1   2014-04-19
 ##  source                                      
+##  CRAN (R 3.1.0)                              
 ##  Bioconductor                                
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.0)                              
@@ -1218,30 +1264,33 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
-##  Github (lcolladotor/derfinder@80eaf18)      
-##  Github (lcolladotor/derfinderHelper@da0bc2a)
-##  Github (lcolladotor/derfinderPlot@b4d6fab)  
+##  Github (lcolladotor/derfinder@5e07a12)      
+##  Github (lcolladotor/derfinderHelper@5a7fb10)
+##  Github (lcolladotor/derfinderPlot@cfcc1e4)  
+##  CRAN (R 3.1.1)                              
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.1)                              
+##  CRAN (R 3.1.1)                              
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
+##  Bioconductor                                
+##  Bioconductor                                
+##  Bioconductor                                
+##  Bioconductor                                
+##  Bioconductor                                
+##  CRAN (R 3.1.1)                              
+##  Bioconductor                                
+##  CRAN (R 3.1.0)                              
+##  Bioconductor                                
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
-##  CRAN (R 3.1.1)                              
-##  Bioconductor                                
-##  Bioconductor                                
-##  Bioconductor                                
-##  Bioconductor                                
-##  Bioconductor                                
-##  CRAN (R 3.1.1)                              
-##  Bioconductor                                
-##  CRAN (R 3.1.0)                              
-##  Bioconductor                                
-##  CRAN (R 3.1.0)                              
-##  CRAN (R 3.1.0)                              
-##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.1)                              
 ##  Bioconductor                                
@@ -1253,12 +1302,14 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
+##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  Bioconductor                                
@@ -1273,31 +1324,32 @@ unlink('report', recursive = TRUE)</code></pre></div>
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.1)                              
-##  Bioconductor                                
+##  Github (lcolladotor/regionReport@b56e84e)   
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.1)                              
 ##  CRAN (R 3.1.0)                              
-##  Bioconductor                                
-##  CRAN (R 3.1.0)                              
-##  CRAN (R 3.1.0)                              
-##  Bioconductor                                
-##  Bioconductor                                
-##  CRAN (R 3.1.0)                              
-##  CRAN (R 3.1.0)                              
-##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
 ##  Bioconductor                                
 ##  CRAN (R 3.1.0)                              
 ##  CRAN (R 3.1.0)                              
+##  Bioconductor                                
+##  Bioconductor                                
 ##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
+##  Bioconductor                                
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.0)                              
+##  CRAN (R 3.1.1)                              
 ##  Bioconductor                                
 ##  CRAN (R 3.1.0)                              
 ##  Bioconductor
-</code></pre></div>
-
+</code></pre>
+</div>
 <h1>Bibliography</h1>
 <p>This vignette was generated using <code>knitrBootstrap</code> (<a href='https://github.com/jimhester/'>Hester, 2014</a>) with <code>knitr</code> (<a href='http://www.crcpress.com/product/isbn/9781466561595'>Xie, 2014</a>) and <code>rmarkdown</code> (<a href='http://CRAN.R-project.org/package=rmarkdown'>Allaire, McPherson, Xie, Wickham, et al., 2014</a>) running behind the scenes.</p>
 <p>Citations made with <code>knitcitations</code> <a id='cite-boettigerknitcitations'></a>(<a href='https://github.com/cboettig/knitcitations'>Boettiger, 2014</a>).</p>
@@ -1305,199 +1357,225 @@ unlink('report', recursive = TRUE)</code></pre></div>
 <p>
 <a id='bib-allaire2014rmarkdown'></a><a href="#cite-allaire2014rmarkdown">[1]</a><cite> J. Allaire, J. McPherson, Y. Xie, H. Wickham, et al. <EM>rmarkdown: Dynamic Documents for R</EM>. R package version 0.3.3. 2014. URL: <a href="http://CRAN.R-project.org/package=rmarkdown">http://CRAN.R-project.org/package=rmarkdown</a>.</cite>
 </p>
-
 <p>
 <a id='bib-boettigerknitcitations'></a><a href="#cite-boettigerknitcitations">[2]</a><cite> C. Boettiger. <EM>knitcitations: Citations for knitr markdown files</EM>. R package version 1.0.2. 2014. URL: <a href="https://github.com/cboettig/knitcitations">https://github.com/cboettig/knitcitations</a>.</cite>
 </p>
-
 <p>
-<a id='bib-colladotorres2014derfinder'></a><a href="#cite-colladotorres2014derfinder">[3]</a><cite> L. Collado-Torres, A. Frazee, A. Jaffe and J. Leek. <EM>derfinder: Fast differential expression analysis of RNA-seq data at base-pair resolution</EM>. R package version 0.0.78. 2014. URL: <a href="https://github.com/lcolladotor/derfinder">https://github.com/lcolladotor/derfinder</a>.</cite>
+<a id='bib-colladotorres2014derfinder'></a><a href="#cite-colladotorres2014derfinder">[3]</a><cite> L. Collado-Torres, A. Frazee, A. Jaffe and J. Leek. <EM>derfinder: Fast differential expression analysis of RNA-seq data at base-pair resolution</EM>. R package version 0.99.0. 2014. URL: <a href="https://github.com/lcolladotor/derfinder">https://github.com/lcolladotor/derfinder</a>.</cite>
 </p>
-
 <p>
 <a id='bib-colladotorres2014regionreport'></a><a href="#cite-colladotorres2014regionreport">[4]</a><cite> L. Collado-Torres, A. Jaffe and J. Leek. <EM>regionReport: Generate HTML reports for exploring a set of regions</EM>. R package version 0.99.0. 2014. URL: <a href="https://github.com/lcolladotor/regionReport">https://github.com/lcolladotor/regionReport</a>.</cite>
 </p>
-
 <p>
 <a id='bib-hester2014knitrbootstrap'></a><a href="#cite-hester2014knitrbootstrap">[5]</a><cite> J. Hester. <EM>knitrBootstrap: Knitr Bootstrap framework.</EM> R package version 1.0.0. 2014. URL: <a href="https://github.com/jimhester/">https://github.com/jimhester/</a>.</cite>
 </p>
-
 <p>
 <a id='bib-vaidyanathan2013rcharts'></a><a href="#cite-vaidyanathan2013rcharts">[6]</a><cite> R. Vaidyanathan. <EM>rCharts: Interactive Charts using Polycharts.js</EM>. R package version 0.4.2. 2013.</cite>
 </p>
-
 <p>
 <a id='bib-wickham2009ggplot2'></a><a href="#cite-wickham2009ggplot2">[7]</a><cite> H. Wickham. <EM>ggplot2: elegant graphics for data analysis</EM>. Springer New York, 2009. ISBN: 978-0-387-98140-6. URL: <a href="http://had.co.nz/ggplot2/book">http://had.co.nz/ggplot2/book</a>.</cite>
 </p>
-
 <p>
 <a id='bib-xie2014knitr'></a><a href="#cite-xie2014knitr">[8]</a><cite> Y. Xie. “knitr: A Comprehensive Tool for Reproducible Research in R”. In: <EM>Implementing Reproducible Computational Research</EM>. Ed. by V. Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595. Chapman and Hall/CRC, 2014. URL: <a href="http://www.crcpress.com/product/isbn/9781466561595">http://www.crcpress.com/product/isbn/9781466561595</a>.</cite>
 </p>
-
 <p>
 <a id='bib-yin2012ggbio'></a><a href="#cite-yin2012ggbio">[9]</a><cite> T. Yin, D. Cook and M. Lawrence. “ggbio: an R package for extending the grammar of graphics for genomic data”. In: <EM>Genome Biology</EM> 13.8 (2012), p. R77.</cite>
 </p>
-</div></div></div>
-<div class="navbar navbar-fixed-bottom navbar-inverse"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+</div>
+</div>
+</div>
+<div class="navbar navbar-fixed-bottom navbar-inverse">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-</button></div>
-<div id="bottom-navbar" class="navbar-collapse collapse navbar-responsive-collapse"><ul class="nav navbar-nav navbar-right"><li class="nav"><p class="navbar-text">
+</button>
+</div>
+<div id="bottom-navbar" class="navbar-collapse collapse navbar-responsive-collapse">
+<ul class="nav navbar-nav navbar-right">
+<li class="nav">
+<p class="navbar-text">
 Toggle
-</p></li>
+</p>
+</li>
 <li class="dropup">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Code <b class="caret"></b></a>
-<ul class="dropdown-menu"><li class="dropdown-header">
+<ul class="dropdown-menu">
+<li class="dropdown-header">
 Languages
 </li>
 <li class="active">
 <a href="#" class="toggle-global source R" type="source.R">R</a>
 </li>
-<li >
+<li>
 <a href="#" type="all-source" class="toggle-global">All</a>
-</li></ul></li>
+</li>
+</ul>
+</li>
 <li class="dropup">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Output <b class="caret"></b></a>
-<ul class="dropdown-menu"><li class="dropdown-header">
+<ul class="dropdown-menu">
+<li class="dropdown-header">
 Type
-</li>
-<li class="active">
-<a href="#" class="toggle-global output" type="output">output</a>
 </li>
 <li class="active">
 <a href="#" class="toggle-global message" type="message">message</a>
 </li>
-<li >
+<li class="active">
+<a href="#" class="toggle-global output" type="output">output</a>
+</li>
+<li>
 <a href="#" type="all-output" class="toggle-global">All</a>
-</li></ul></li>
+</li>
+</ul>
+</li>
 <li class="active">
 <a href="#" type="figure" class="toggle-global">Figures</a>
-</li></ul>
-<ul class="nav navbar-nav navbar-left"><li class="dropup">
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-left">
+<li class="dropup">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bootstrap theme <b class="caret"></b></a>
-<ul class="dropdown-menu"><li class="active">
+<ul class="dropdown-menu">
+<li class="active">
 <a class="theme-switch" title="Default" href="#">Default</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Amelia" href="#">Amelia</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Cerulean" href="#">Cerulean</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Cosmo" href="#">Cosmo</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Cyborg" href="#">Cyborg</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Journal" href="#">Journal</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Flatly" href="#">Flatly</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Readable" href="#">Readable</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Simplex" href="#">Simplex</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Slate" href="#">Slate</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="Spacelab" href="#">Spacelab</a>
 </li>
-<li >
+<li>
 <a class="theme-switch" title="United" href="#">United</a>
-</li></ul></li></ul>
-<ul class="nav navbar-nav navbar-left"><li class="dropup">
+</li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-left">
+<li class="dropup">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Code highlighting <b class="caret"></b></a>
-<ul class="dropdown-menu"><li class="active">
+<ul class="dropdown-menu">
+<li class="active">
 <a class="highlight-switch" title="HighlightJs" href="#">HighlightJs</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Dark" href="#">Dark</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Far" href="#">Far</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Idea" href="#">Idea</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Sunburst" href="#">Sunburst</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Zenburn" href="#">Zenburn</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Visual Studio" href="#">Visual Studio</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Ascetic" href="#">Ascetic</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Magula" href="#">Magula</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Github" href="#">Github</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Google Code" href="#">Google Code</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Brown Paper" href="#">Brown Paper</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="School Book" href="#">School Book</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="IR Black" href="#">IR Black</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Solarized - Dark" href="#">Solarized - Dark</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Solarized - Light" href="#">Solarized - Light</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Arta" href="#">Arta</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Monokai" href="#">Monokai</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Xcode" href="#">Xcode</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Pojoaque" href="#">Pojoaque</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Rainbow" href="#">Rainbow</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Tomorrow" href="#">Tomorrow</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Tomorrow Night" href="#">Tomorrow Night</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Tomorrow Night Bright" href="#">Tomorrow Night Bright</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Tomorrow Night Blue" href="#">Tomorrow Night Blue</a>
 </li>
-<li >
+<li>
 <a class="highlight-switch" title="Tomorrow Night Eighties" href="#">Tomorrow Night Eighties</a>
-</li></ul></li></ul></div></div></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" title="Default" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css" title="Amelia" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cerulean/bootstrap.min.css" title="Cerulean" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cosmo/bootstrap.min.css" title="Cosmo" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/cyborg/bootstrap.min.css" title="Cyborg" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/journal/bootstrap.min.css" title="Journal" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" title="Flatly" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/readable/bootstrap.min.css" title="Readable" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css" title="Simplex" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/slate/bootstrap.min.css" title="Slate" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/spacelab/bootstrap.min.css" title="Spacelab" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css" title="United" media="screen"></link><link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" title="HighlightJs" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/dark.min.css" title="Dark" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/far.min.css" title="Far" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/idea.min.css" title="Idea" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/sunburst.min.css" title="Sunburst" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/zenburn.min.css" title="Zenburn" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/vs.min.css" title="Visual Studio" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/ascetic.min.css" title="Ascetic" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/magula.min.css" title="Magula" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.min.css" title="Github" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/googlecode.min.css" title="Google Code" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/brown_paper.min.css" title="Brown Paper" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/school_book.min.css" title="School Book" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/ir_black.min.css" title="IR Black" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/solarized_dark.min.css" title="Solarized - Dark" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/solarized_light.min.css" title="Solarized - Light" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/arta.min.css" title="Arta" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/monokai.min.css" title="Monokai" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/xcode.min.css" title="Xcode" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/pojoaque.min.css" title="Pojoaque" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/rainbow.min.css" title="Rainbow" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow.min.css" title="Tomorrow" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night.min.css" title="Tomorrow Night" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-bright.min.css" title="Tomorrow Night Bright" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-blue.min.css" title="Tomorrow Night Blue" media="screen"></link> <link rel="alternate stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/tomorrow-night-eighties.min.css" title="Tomorrow Night Eighties" media="screen"></link>
 </div>
 <div id="push">
 
 </div>
-<div id="footer"><div class="container"><p class="text-muted" id="credit">
+<div id="footer">
+<div class="container">
+<p class="text-muted" id="credit">
 Styled with <a href="https://github.com/jimhester/knitrBootstrap">knitrBootstrap</a>
-</p></div></div>
+</p>
+</div>
+</div>
 <link rel="stylesheet" id="theme" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen"></link><link rel="stylesheet" id="highlight" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" media="screen"></link>
 </div>
 </body>
