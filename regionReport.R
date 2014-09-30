@@ -13,20 +13,36 @@ cite_options(hyperlink = 'to.doc', citation_format = 'text', style = 'html')
 # https://github.com/cboettig/knitcitations/issues/63
 
 ## Write bibliography information
-write.bibtex(c(knitcitations = citation('knitcitations'), 
+bibs <- c(knitcitations = citation('knitcitations'), 
     derfinder = citation('derfinder'), 
     regionReport = citation('regionReport'),
     knitrBootstrap = citation('knitrBootstrap'),
     ggbio = citation('ggbio'),
     ggplot2 = citation('ggplot2'),
-    rCharts = citation('rCharts'), 
     knitr = citation('knitr')[3],
-    rmarkdown = citation('rmarkdown')),
-    file = 'derfinderPlotRef.bib')
-bib <- read.bibtex('derfinderPlotRef.bib')
+    rmarkdown = citation('rmarkdown'),
+    R = citation(),
+    IRanges = citation('IRanges'),
+    devtools = citation('devtools'),
+    GenomeInfoDb = citation('GenomeInfoDb'),
+    GenomicRanges = citation('GenomicRanges'),
+    biovizBase = citation('biovizBase'),
+    bumphunter = citation('bumphunter'),
+    TxDb.Hsapiens.UCSC.hg19.knownGene = citation('TxDb.Hsapiens.UCSC.hg19.knownGene'),
+    derfinderPlot = citation('derfinderPlot'),
+    grid = citation('grid'),
+    gridExtra = citation('gridExtra'),
+    mgcv = citation('mgcv'),
+    RColorBrewer = citation('RColorBrewer'),
+    Cairo = citation('Cairo')
+)
 
-## Fix some names to work with CRAN and GitHub versions
-names(bib)[names(bib) == 'hester2013knitrbootstrap'] <- 'hester2014knitrbootstrap'
+write.bibtex(bibs,
+    file = 'regionReportRef.bib')
+bib <- read.bibtex('regionReportRef.bib')
+
+## Assign short names
+names(bib) <- names(bibs)
 
 
 ## ----loadDerfinder, bootstrap.show.code=TRUE-----------------------------
@@ -97,6 +113,7 @@ library('regionReport')
 ## ----createReportReal, echo=FALSE, message=FALSE, bootstrap.show.code=FALSE----
 ## Generate the HTML report in a clean environment
 library('devtools')
+
 cat("## Generate the report in an isolated environment
 ## This helps avoids conflicts with generating the vignette
 library(derfinder)
@@ -109,11 +126,12 @@ load(file.path('report', 'chr21', 'optionsStats.Rdata'))
 report <- derfinderReport(prefix='report', browse=FALSE,
     nBestRegions=15, makeBestClusters=TRUE, outdir='html',
     fullCov=list('21'=genomeDataRaw$coverage), optionsStats=optionsStats)
-    
+
 ## Clean up
 file.remove('derfinderReport-isolated.R')
 ", file='derfinderReport-isolated.R')
 clean_source('derfinderReport-isolated.R', quiet=TRUE)
+
 
 
 ## ----vignetteBrowse, eval=FALSE, bootstrap.show.code=TRUE----------------
@@ -158,11 +176,19 @@ derfinder::advancedArg('derfinderReport', package = 'regionReport',
 ## 
 ## ## Copy report output to be distributed with the package for comparison
 ## ## purposes
-## file.copy(file.path('report', 'html', 'basicExploration.html'),
-##     '../inst/basicExploration/basicExploration.html', overwrite=TRUE)
+## if(gsub('.*/', '', getwd()) == 'realVignettes') {
+##     file.copy(file.path('report', 'html', 'basicExploration.html'),
+##         file.path('..', '..', 'inst', 'basicExploration',
+##             'basicExploration.html'), overwrite=TRUE)
+## } else {
+##     file.copy(file.path('report', 'html', 'basicExploration.html'),
+##         file.path('..', 'inst', 'basicExploration', 'basicExploration.html'),
+##             overwrite=TRUE)
+## }
+## 
 ## 
 ## ## Clean up
-## file.remove('derfinderPlotRef.bib')
+## file.remove('regionReportRef.bib')
 ## #unlink('regionReport_files', recursive=TRUE)
 ## unlink('report', recursive = TRUE)
 
@@ -180,10 +206,11 @@ round(totalTimeVignette, digits=3)
 
 ## ----vignetteReproducibility3, echo=FALSE--------------------------------
 ## Session info
+library('devtools')
 session_info()
 
 
-## ----vignetteBiblio, results='asis', echo=FALSE--------------------------
+## ----vignetteBiblio, results='asis', echo=FALSE, warning = FALSE---------
 ## Print bibliography
 bibliography()
 
